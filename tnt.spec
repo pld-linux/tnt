@@ -1,6 +1,6 @@
-Summary:        Terminal program for packet radio
-Summary(de):    Terminalprogramm für Packet Radio
-Summary(pl):    Termina³ dla Packet Radio
+Summary:	Terminal program for packet radio
+Summary(de):	Terminalprogramm für Packet Radio
+Summary(pl):	Termina³ dla Packet Radio
 Name:		tnt
 Version:	1.9.1
 Release:	0.1
@@ -18,11 +18,11 @@ TNT is a console based packet radio terminal for hostmode tncs. It
 supports virtual channels and socket communication. It also can be
 used with ax25 kernel or kiss interfaces together with TFkiss.
 
-Authors:
-- -------- Mark Wahl, DL4YBG <wahlm@berlin.snafu.de> Matthias Hensler
-  <wsp@gmx.de> Berndt Josef Wulf, VK5ABN <wulf@ping.net.au> Walter Koch,
-  DG9EP <walter@1409.org> Jonny Hanne, DH3MB <johnny@1409.org> and
-  others
+%description -l pl
+TNT jest konsolowym termina³em Packet Radio dla TNC w trypie HOST.
+Obs³uguje wirtualne kana³y oraz komunikacjê poprzez gniazdko. Mo¿e byæ
+równie¿ u¿ywany bezpo¶rednio z rdzeniem AX25 lub poprzez interfejs
+KISS wraz z programem tfkiss.
 
 %prep
 %setup -q
