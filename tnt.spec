@@ -6,7 +6,8 @@ Version:	1.9.1
 Release:	0.1
 License:	GPL
 Group:		Applications
-Source0:	ftp://ftp.wspse.de/pub/packet_radio/tnt/CVS/%{name}-20000606.tar.bz2
+Source0:	ftp://ftp.wspse.de/pub/packet_radio/tnt/%{name}-%{version}.tar.bz2
+# Source0-md5:	3fbd9bc029611a462c7864cf79994ffa
 Patch0:		%{name}-SUSE.patch
 URL:		http://www.wspse.de/WSPse/Packet.php3
 BuildRequires:	ncurses-devel
