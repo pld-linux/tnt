@@ -1,6 +1,6 @@
 Summary:	Terminal program for packet radio
 Summary(de):	Terminalprogramm für Packet Radio
-Summary(pl):	Termina³ dla Packet Radio
+Summary(pl):	Terminal dla Packet Radio
 Name:		tnt
 Version:	1.9.1
 Release:	0.1
