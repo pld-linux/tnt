@@ -15,8 +15,12 @@ Source0:	ftp://ftp.wspse.de/pub/packet_radio/tnt/CVS/%{name}-20000606.tar.gz
 # Source0-md5:	aea30feb88b54eda10171f47776b9a3e
 Patch0:		%{name}-SUSE.patch
 URL:		http://www.wspse.de/WSPse/Packet.php3
-BuildRequires:	ncurses-devel
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	gettext-devel
 BuildRequires:	libax25-devel
+BuildRequires:	libtool
+BuildRequires:	ncurses-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -52,22 +56,30 @@ rm -f missing
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
+%postun
+[ ! -x /usr/sbin/fix-info-dir ] || /usr/sbin/fix-info-dir %{_infodir} >/dev/null 2>&1
+
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc examples/ AUTHORS AX25-NOTES ChangeLog NEWS README TODO
 %attr(755,root,root) %{_bindir}/*
 %attr(755,root,root) %{_sbindir}/*
-%{_libdir}/tnt/
-%dir %{_datadir}/tnt/
-%config %{_datadir}/tnt/conf/
-%{_datadir}/tnt/doc/
-%{_datadir}/tnt/sounds/
-%{_var}/spool/tnt/
-%{_infodir}/
+%{_libdir}/tnt
+%dir %{_datadir}/tnt
+%config %{_datadir}/tnt/conf
+%{_datadir}/tnt/doc
+%{_datadir}/tnt/sounds
+%{_var}/spool/tnt
+%{_infodir}/*.info*
