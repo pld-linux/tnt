@@ -1,7 +1,7 @@
 #
 # Conditional build:
-# _with_genusers - allow create users for TNT (FHS incomplance)
-# _with_dpboxt   - support for dpboxt (doesn't compile - propably missing headers)
+# _with_genuser	- allow create users for TNT (FHS incomplance)
+# _with_dpboxt	- support for dpboxt (doesn't compile - propably missing headers)
 #
 Summary:	Terminal program for packet radio
 Summary(de):	Terminalprogramm für Packet Radio
