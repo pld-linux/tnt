@@ -1,0 +1,312 @@
+--- conf/Makefile.am
++++ conf/Makefile.am	2002/04/24 23:17:28
+@@ -7,22 +7,23 @@
+ tnt_work_dir    = @tnt_work_dir@
+ tnt_bin_dir     = @tnt_bin_dir@
+ 
+-install:
+-	mkdir -p ${tnt_work_dir}/7plus         |true
+-	mkdir -p ${tnt_work_dir}/abin          |true
+-	mkdir -p ${tnt_work_dir}/bcast         |true
+-	mkdir -p ${tnt_work_dir}/bcast/newmail |true
+-	mkdir -p ${tnt_work_dir}/bcast/save    |true
+-	mkdir -p ${tnt_work_dir}/ctext         |true
+-	mkdir -p ${tnt_work_dir}/down          |true
+-	mkdir -p ${tnt_work_dir}/macro         |true
+-	mkdir -p ${tnt_work_dir}/newmail       |true
+-	mkdir -p ${tnt_work_dir}/remote        |true
+-	mkdir -p ${tnt_work_dir}/tntusers      |true
+-	mkdir -p ${tnt_work_dir}/up            |true
+-	mkdir -p ${tnt_work_dir}/yapp          |true
+-	@if [ ! -d ${tnt_work_dir}/bin ]; then \
+-		ln -s ${tnt_bin_dir} ${tnt_work_dir}/bin |true; \
++install-data-local:
++	install -d $(DESTDIR)
++	mkdir -p $(DESTDIR)${tnt_work_dir}/7plus         |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/abin          |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/bcast         |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/bcast/newmail |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/bcast/save    |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/ctext         |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/down          |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/macro         |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/newmail       |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/remote        |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/tntusers      |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/up            |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/yapp          |true
++	@if [ ! -d $(DESTDIR)${tnt_work_dir}/bin ]; then \
++		ln -s ${tnt_bin_dir} $(DESTDIR)${tnt_work_dir}/bin |true; \
+ 	fi
+ 	@echo "*****************************"
+ 	@echo "*       TNT installed       *"
+--- conf/Makefile.in
++++ conf/Makefile.in	2002/04/24 23:17:28
+@@ -238,22 +238,21 @@
+ 
+ 
+ install:
+-	mkdir -p ${tnt_work_dir}/7plus         |true
+-	mkdir -p ${tnt_work_dir}/abin          |true
+-	mkdir -p ${tnt_work_dir}/bcast         |true
+-	mkdir -p ${tnt_work_dir}/bcast/newmail |true
+-	mkdir -p ${tnt_work_dir}/bcast/save    |true
+-	mkdir -p ${tnt_work_dir}/ctext         |true
+-	mkdir -p ${tnt_work_dir}/down          |true
+-	mkdir -p ${tnt_work_dir}/macro         |true
+-	mkdir -p ${tnt_work_dir}/newmail       |true
+-	mkdir -p ${tnt_work_dir}/remote        |true
+-	mkdir -p ${tnt_work_dir}/tntusers      |true
+-	mkdir -p ${tnt_work_dir}/up            |true
+-	mkdir -p ${tnt_work_dir}/yapp          |true
+-	@if [ ! -d ${tnt_work_dir}/bin ]; then \
+-		ln -s ${tnt_bin_dir} ${tnt_work_dir}/bin |true; \
+-	fi
++	install -d $(DESTDIR)
++	mkdir -p $(DESTDIR)${tnt_work_dir}/7plus         |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/abin          |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/bcast         |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/bcast/newmail |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/bcast/save    |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/ctext         |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/down          |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/macro         |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/newmail       |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/remote        |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/tntusers      |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/up            |true
++	mkdir -p $(DESTDIR)${tnt_work_dir}/yapp          |true
++	ln -s ${tnt_run_dir} $(DESTDIR)${tnt_work_dir}/bin |true
+ 	@echo "*****************************"
+ 	@echo "*       TNT installed       *"
+ 	@echo "*                           *"
+--- configure.in
++++ configure.in	2002/04/24 23:17:28
+@@ -3,6 +3,7 @@
+ AC_CANONICAL_SYSTEM
+ AM_CONFIG_HEADER(config.h)
+ AM_INIT_AUTOMAKE(tnt,1.9.1)
++AC_PROG_LIBTOOL
+ 
+ dnl Available languages
+ ALL_LINGUAS="de fr"
+@@ -92,7 +93,7 @@
+                 tnt_doc_dir=${prefix}/share/tnt/doc
+                 tnt_log_dir=${localstatedir}/log
+ 		tnt_proc_dir=${localstatedir}/run
+-                tnt_bin_dir=${prefix}/libexec/tnt
++                tnt_bin_dir=${prefix}/lib/tnt
+                 tnt_sound_dir=${prefix}/share/tnt/sounds
+ 	;;
+ 
+@@ -359,6 +360,7 @@
+ 		fi
+ 
+ 		AC_CHECK_LIB(ax25, ax25_config_load_ports, AX25_LIB="-lax25", AC_MSG_ERROR(Could not find the libax25 libraries; aborting))
++		AC_CHECK_HEADERS(netax25/axconfig.h)
+ 		AC_CHECK_HEADER(netax25/procutils.h,
+ 		[
+ 			AC_DEFINE(HAVE_NETAX25_PROCUTILS_H)
+--- doc/Makefile.am
++++ doc/Makefile.am	2002/04/24 23:18:10
+@@ -8,8 +8,8 @@
+ 		  ax25krnl.doc iface.doc tnt.doc.de tnt.doc.en tnt.doc.fr \
+ 		  tntdoc.dvi tntdoc.html
+ 
+-infodir		= @infodir@
+-info_DATA 	= tntdoc.info tntdoc.info-1 tntdoc.info-2 tntdoc.info-3 tntdoc.info-4
++infdir		= @infodir@
++inf_DATA 	= tntdoc.info tntdoc.info-1 tntdoc.info-2 tntdoc.info-3 tntdoc.info-4
+ 
+-EXTRA_DIST	= FILES tntdoc.texi $(setupdoc_DATA) $(info_DATA)
++EXTRA_DIST	= FILES tntdoc.texi $(setupdoc_DATA) $(inf_DATA)
+ 
+--- examples/Makefile.am
++++ examples/Makefile.am	2002/04/24 23:17:28
+@@ -40,7 +40,7 @@
+ 
+ EXTRA_DIST	= sounds.tnt.in tnt.ini.in tntc.ini.in $(exmpfiles) $(help_DATA)
+ 
+-install:
++install-data-local:
+ 	$(mkinstalldirs) $(DESTDIR)$(exmpdir)
+ 	@for i in $(exmpfiles); \
+   	do \
+--- examples/tnt.ini.in
++++ examples/tnt.ini.in	2002/04/24 23:17:28
+@@ -189,7 +189,7 @@
+ # Logfile for saving tnt-session status
+ tnt_sessionlog /var/log/tntsession_status
+ # file for sound effects (only if compiled with TNT_SOUND!)
+-# tnt_soundfile sounds.tnt
++tnt_soundfile sounds.tnt
+ 
+ # socket for digipoint box
+ # use "0", if you don't want to use dpbox
+--- po/Makefile.in.in
++++ po/Makefile.in.in	2002/04/24 23:17:28
+@@ -119,8 +119,8 @@
+ 	for cat in $$catalogs; do \
+ 	  cat=`basename $$cat`; \
+ 	  case "$$cat" in \
+-	    *.gmo) destdir=$(gnulocaledir);; \
+-	    *)     destdir=$(localedir);; \
++	    *.gmo) destdir=$(DESTDIR)$(gnulocaledir);; \
++	    *)     destdir=$(DESTDIR)$(localedir);; \
+ 	  esac; \
+ 	  lang=`echo $$cat | sed 's/\$(CATOBJEXT)$$//'`; \
+ 	  dir=$$destdir/$$lang/LC_MESSAGES; \
+--- po/de.po
++++ po/de.po	2002/04/24 23:27:34
+@@ -8,6 +8,7 @@
+ "Project-Id-Version: TNT 1.9\n"
+ "POT-Creation-Date: 2000-06-06 17:06+0200\n"
+ "PO-Revision-Date: 2000-01-31 22:22+0200\n"
++"Language-Team: Matthias Hensler <wsp@gmx.de>\n"
+ "Last-Translator: Matthias Hensler <wsp@gmx.de>\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=iso-8859-1\n"
+@@ -939,7 +940,7 @@
+ #: src/remote.c:1811
+ #, c-format
+ msgid "<TNT>: Link time %02d:%02d:%02d %s"
+-msgstr "<TNT>: Laufzeit %02d:%02d%:02d %s"
++msgstr "<TNT>: Laufzeit %02d:%02d:%02d %s"
+ 
+ #: src/remote.c:1815 src/remote.c:1817
+ msgid "<TNT>: RTT failure!"
+--- po/fr.po
++++ po/fr.po	2002/04/24 23:29:17
+@@ -9,6 +9,7 @@
+ "Project-Id-Version: TNT 1.9\n"
+ "POT-Creation-Date: 2000-01-31 22:18+0100\n"
+ "PO-Revision-Date: 2000-01-31 22:28+0200\n"
++"Language-Team: Laurent F5SOH <f5soh@bigfoot.com>\n"
+ "Last-Translator: Laurent F5SOH <f5soh@bigfoot.com>\n"
+ "MIME-Version: 1.0\n"
+ "Content-Type: text/plain; charset=iso-8859-1\n"
+@@ -976,7 +977,7 @@
+ #: remote.c:3607
+ #, c-format
+ msgid "<TNT>:station %s not connected!%s"
+-msgstr "<TNT>:la station n'est pas connectee!%s"
++msgstr "<TNT>:la station %s n'est pas connectee!%s"
+ 
+ #: remote.c:3616
+ #, c-format
+--- src/ax25k.c
++++ src/ax25k.c	2002/04/24 23:17:28
+@@ -61,6 +61,11 @@
+ #define rosecmp rose_cmp
+ #define ax25validate ax25_validate
+ 
++#ifdef HAVE_NETAX25_AXCONFIG_H
++/* For ax25_config_* */
++#include <netax25/axconfig.h>
++#endif
++
+ #ifdef HAVE_NETAX25_PROCUTILS_H
+ /* Detlef Conradin */
+ #include <netax25/procutils.h>
+--- src/bcast.c
++++ src/bcast.c	2002/04/24 23:17:28
+@@ -32,6 +32,8 @@
+ #define BCAST_G
+ #include "bcast.h"
+ 
++#include <time.h>
++
+ /*external function declarations */
+ extern void app_file(char *filea, short k2, boolean del_source);
+ extern void checksum16_buf();
+--- src/macro.c
++++ src/macro.c	2002/04/24 23:17:28
+@@ -11,6 +11,8 @@
+ #include "tnt.h"
+ #include "macro.h"
+ 
++#include <time.h>
++
+ char news_file_name[MAXCHAR];
+ char name_file_name[MAXCHAR];
+ 
+--- src/runprgs/Makefile.am
++++ src/runprgs/Makefile.am	2002/04/24 23:19:17
+@@ -2,17 +2,17 @@
+ tnt_conf_dir	= @tnt_conf_dir@
+ tnt_log_dir	= @tnt_log_dir@
+ 
+-bindir		= ${tnt_bin_dir}
++binarydir	= ${tnt_bin_dir}
+ configdir	= ${tnt_conf_dir}
+ logdir		= ${tnt_log_dir}
+ rundir		= @includedir@
+-bin_PROGRAMS	= help info logcall
+-bin_DATA	= .help .info .logcall
++binary_PROGRAMS	= help info logcall
++binary_DATA	= .help .info .logcall
+ run_HEADERS	= tntrun.h
+ help_SOURCES	= help.c tntrun.h
+ info_SOURCES	= info.c tntrun.h
+ logcall_SOURCES	= logcall.c tntrun.h
+ 
+ INCLUDES	= -I../../intl
+-EXTRA_DIST	= READMEBIN tntrun.h.in $(bin_DATA)
++EXTRA_DIST	= READMEBIN tntrun.h.in $(binary_DATA)
+ 
+--- src/tnt.h
++++ src/tnt.h	2002/04/24 23:17:28
+@@ -59,13 +59,40 @@
+ #include <termios.h>
+ #include <utime.h>
+ #include <dirent.h>
++#include <sys/wait.h>
+ 
+ #include "window.h"
+ 
+ #ifdef USE_HIBAUD
+-#include <linux/fs.h>
+-#include <linux/tty.h>
+-#include <linux/serial.h>
++/* from linux/serial.h -- do not include linux/* or asm/* headers, 
++   they won't work with glibc2
++*/
++#define ASYNC_SPD_HI	0x0010
++#define ASYNC_SPD_VHI	0x0020
++#define ASYNC_SPD_MASK	0x1030
++
++
++struct serial_struct {
++	int	type;
++	int	line;
++	unsigned int	port;
++	int	irq;
++	int	flags;
++	int	xmit_fifo_size;
++	int	custom_divisor;
++	int	baud_base;
++	unsigned short	close_delay;
++	char	io_type;
++	char	reserved_char[1];
++	int	hub6;
++	unsigned short	closing_wait; /* time to wait before closing */
++	unsigned short	closing_wait2; /* no longer used... */
++	unsigned char	*iomem_base;
++	unsigned short	iomem_reg_shift;
++	unsigned int	port_high;
++	int	reserved[1];
++};
++
+ #endif
+ 
+ #if   defined(HAVE_WAIT_H)
+--- src/yapp.c
++++ src/yapp.c	2002/04/24 23:17:28
+@@ -40,6 +40,7 @@
+                
+ #include "tnt.h"
+ 
++#include <time.h>
+ 
+ #define NUL             0
+ #define SOH             0x1
