@@ -1,3 +1,8 @@
+#
+# Conditional build:
+# _with_genusers - allow create users for TNT (FHS incomplance)
+# _with_dpboxt   - support for dpboxt (doesn't compile - propably missing headers)
+#
 Summary:	Terminal program for packet radio
 Summary(de):	Terminalprogramm für Packet Radio
 Summary(pl):	Terminal dla Packet Radio
@@ -19,7 +24,7 @@ supports virtual channels and socket communication. It also can be
 used with ax25 kernel or kiss interfaces together with TFkiss.
 
 %description -l pl
-TNT jest konsolowym termina³em Packet Radio dla TNC w trypie HOST.
+TNT jest konsolowym terminalem Packet Radio dla TNC w trypie HOST.
 Obs³uguje wirtualne kana³y oraz komunikacjê poprzez gniazdko. Mo¿e byæ
 równie¿ u¿ywany bezpo¶rednio z rdzeniem AX25 lub poprzez interfejs
 KISS wraz z programem tfkiss.
@@ -39,8 +44,8 @@ rm -f missing
 %configure \
 	--enable-ax25k2 \
 	--enable-hibaud \
-	--enable-genuser
-#	--enable-dpboxt
+	%{?_with_genuser:--enable-genuser} \
+	%{?_with_dpboxt:--enable-dpboxt} 
 
 %{__make}
 
