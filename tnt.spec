@@ -12,6 +12,7 @@ Release:	0.1
 License:	GPL
 Group:		Applications
 Source0:	ftp://ftp.wspse.de/pub/packet_radio/tnt/CVS/%{name}-20000606.tar.gz
+# Source0-md5:	aea30feb88b54eda10171f47776b9a3e
 Patch0:		%{name}-SUSE.patch
 URL:		http://www.wspse.de/WSPse/Packet.php3
 BuildRequires:	ncurses-devel
