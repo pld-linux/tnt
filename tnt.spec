@@ -50,7 +50,7 @@ rm -f missing
 	--enable-ax25k2 \
 	--enable-hibaud \
 	%{?_with_genuser:--enable-genuser} \
-	%{?_with_dpboxt:--enable-dpboxt} 
+	%{?_with_dpboxt:--enable-dpboxt}
 
 %{__make}
 
