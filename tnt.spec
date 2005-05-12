@@ -1,7 +1,7 @@
 #
 # Conditional build:
-# _with_genuser	- allow create users for TNT (FHS incomplance)
-# _with_dpboxt	- support for dpboxt (doesn't compile - propably missing headers)
+%bcond_with genuser		# allow create users for TNT (FHS incomplance)
+%bcond_with dpboxt		# support for dpboxt (doesn't compile - propably missing headers)
 #
 Summary:	Terminal program for packet radio
 Summary(de):	Terminalprogramm für Packet Radio
@@ -49,8 +49,8 @@ rm -f missing
 %configure \
 	--enable-ax25k2 \
 	--enable-hibaud \
-	%{?_with_genuser:--enable-genuser} \
-	%{?_with_dpboxt:--enable-dpboxt}
+	%{?with_genuser:--enable-genuser} \
+	%{?with_dpboxt:--enable-dpboxt}
 
 %{__make}
 
