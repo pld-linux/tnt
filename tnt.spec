@@ -1,7 +1,7 @@
 #
 # Conditional build:
-%bcond_with genuser		# allow create users for TNT (FHS incomplance)
-%bcond_with dpboxt		# support for dpboxt (doesn't compile - propably missing headers)
+%bcond_with	genuser		# allow create users for TNT (FHS incomplance)
+%bcond_with	dpboxt		# support for dpboxt (doesn't compile - propably missing headers)
 #
 Summary:	Terminal program for packet radio
 Summary(de):	Terminalprogramm für Packet Radio
