@@ -4,8 +4,8 @@
 %bcond_with	dpboxt		# support for dpboxt (doesn't compile - propably missing headers)
 #
 Summary:	Terminal program for packet radio
-Summary(de):	Terminalprogramm f¸r Packet Radio
-Summary(pl):	Terminal dla Packet Radio
+Summary(de.UTF-8):   Terminalprogramm f√ºr Packet Radio
+Summary(pl.UTF-8):   Terminal dla Packet Radio
 Name:		tnt
 Version:	1.9.1
 Release:	0.1
@@ -28,10 +28,10 @@ TNT is a console based packet radio terminal for hostmode tncs. It
 supports virtual channels and socket communication. It also can be
 used with ax25 kernel or kiss interfaces together with TFkiss.
 
-%description -l pl
+%description -l pl.UTF-8
 TNT jest konsolowym terminalem Packet Radio dla TNC w trypie HOST.
-Obs≥uguje wirtualne kana≥y oraz komunikacjÍ poprzez gniazdko. Moøe byÊ
-rÛwnieø uøywany bezpo∂rednio z rdzeniem AX25 lub poprzez interfejs
+Obs≈Çuguje wirtualne kana≈Çy oraz komunikacjƒô poprzez gniazdko. Mo≈ºe byƒá
+r√≥wnie≈º u≈ºywany bezpo≈õrednio z rdzeniem AX25 lub poprzez interfejs
 KISS wraz z programem tfkiss.
 
 %prep
