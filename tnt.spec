@@ -4,8 +4,8 @@
 %bcond_with	dpboxt		# support for dpboxt (doesn't compile - propably missing headers)
 #
 Summary:	Terminal program for packet radio
-Summary(de.UTF-8):   Terminalprogramm für Packet Radio
-Summary(pl.UTF-8):   Terminal dla Packet Radio
+Summary(de.UTF-8):	Terminalprogramm für Packet Radio
+Summary(pl.UTF-8):	Terminal dla Packet Radio
 Name:		tnt
 Version:	1.9.1
 Release:	0.1
