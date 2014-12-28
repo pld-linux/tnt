@@ -17,7 +17,7 @@ Patch0:		%{name}-SUSE.patch
 URL:		http://www.wspse.de/WSPse/Packet.php3
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	libax25-devel
 BuildRequires:	libtool
 BuildRequires:	ncurses-devel
